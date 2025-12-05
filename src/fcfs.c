@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+//code edited
 typedef struct {
     char pid[10];
     int arrival;

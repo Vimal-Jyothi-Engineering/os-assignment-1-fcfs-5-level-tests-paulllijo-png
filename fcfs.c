@@ -19,7 +19,7 @@ int main() {
         scanf("%s %d %d", p[i].pid, &p[i].arrival, &p[i].burst);
     }
 
-    // Sort processes by arrival time (FCFS rule)
+    // Sort by arrival time
     for (int i = 0; i < n - 1; i++) {
         for (int j = i + 1; j < n; j++) {
             if (p[j].arrival < p[i].arrival) {
@@ -35,14 +35,10 @@ int main() {
 
     for (int i = 0; i < n; i++) {
 
-        // If CPU idle, move time to arrival
-        if (current_time < p[i].arrival) {
+        if (current_time < p[i].arrival)
             current_time = p[i].arrival;
-        }
 
-        // Cumulative waiting time (your test case definition)
-        p[i].waiting = current_time - 0;   // Note: waiting starts from 0, not arrival
-
+        p[i].waiting = current_time - p[i].arrival;
         p[i].turnaround = p[i].waiting + p[i].burst;
 
         current_time += p[i].burst;
@@ -51,16 +47,13 @@ int main() {
         total_tat += p[i].turnaround;
     }
 
-    // EXACT required output format:
     printf("Waiting Time:\n");
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
         printf("%s %d\n", p[i].pid, p[i].waiting);
-    }
 
     printf("Turnaround Time:\n");
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
         printf("%s %d\n", p[i].pid, p[i].turnaround);
-    }
 
     printf("Average Waiting Time: %.2f\n", total_wt / n);
     printf("Average Turnaround Time: %.2f\n", total_tat / n);
